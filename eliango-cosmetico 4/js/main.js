@@ -409,6 +409,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updatePlaceholders(savedLang);
 
+  // ---------- Hero video fallback ----------
+  const heroVideo = document.querySelector('.hero-video');
+  const heroFallback = document.querySelector('.hero-fallback');
+  if (heroVideo && heroFallback) {
+    heroVideo.addEventListener('error', () => {
+      heroVideo.hidden = true;
+      heroFallback.hidden = false;
+    });
+    // if video never starts playing
+    setTimeout(() => {
+      if (heroVideo.readyState < 2) {
+        heroVideo.hidden = true;
+        heroFallback.hidden = false;
+      }
+    }, 4000);
+  }
+
+
   // ---------- Footer newsletter → WhatsApp ----------
   document.getElementById('footerSignup')?.addEventListener('submit', e => {
     e.preventDefault();
