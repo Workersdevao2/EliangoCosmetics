@@ -87,14 +87,14 @@
 
   <!-- Hero -->
   <section class="hero" id="inicio">
-    <video class="hero-bg hero-video" autoplay muted loop playsinline preload="auto" poster="images/hero-poster.jpg">
+    <video class="hero-bg hero-video"
+      autoplay muted loop playsinline webkit-playsinline
+      preload="auto" poster="images/hero-poster.jpg"
+      disablepictureinpicture>
+      <source src="images/hero-video.mp4" type="video/mp4">
       <source src="media/hero.mp4" type="video/mp4">
     </video>
     <img class="hero-bg hero-fallback" src="images/hero-poster.jpg" alt="Eliango Cosmético" hidden>
-    <div class="container hero-content">
-      <h1 data-lang="pt">Elevamos a sua autoestima através da maquiagem</h1>
-      <h1 data-lang="en">We elevate your self-esteem through makeup</h1>
-    </div>
   </section>
 
   <!-- About -->

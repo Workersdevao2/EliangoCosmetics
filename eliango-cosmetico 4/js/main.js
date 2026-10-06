@@ -409,27 +409,53 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updatePlaceholders(savedLang);
 
-  // ---------- Hero video: force play + real error fallback ----------
+  // ---------- Hero video playback ----------
   const heroVideo = document.querySelector('.hero-video');
   const heroFallback = document.querySelector('.hero-fallback');
   if (heroVideo) {
-    const showFallback = () => {
-      heroVideo.style.display = 'none';
-      if (heroFallback) heroFallback.hidden = false;
-    };
-    heroVideo.addEventListener('error', showFallback);
-    // Explicit play() helps when autoplay is blocked or delayed
+    // Critical for autoplay policies
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.playsInline = true;
+    heroVideo.setAttribute('muted', '');
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('webkit-playsinline', '');
+
     const tryPlay = () => {
       const p = heroVideo.play();
-      if (p && typeof p.catch === 'function') {
-        p.catch(() => {
-          // muted autoplay should work; if not, keep trying once more on user gesture is not needed for muted
+      if (p && typeof p.then === 'function') {
+        p.then(() => {
+          if (heroFallback) heroFallback.hidden = true;
+          heroVideo.style.display = '';
+        }).catch(() => {
+          // Retry on first user interaction
         });
       }
     };
-    if (heroVideo.readyState >= 2) tryPlay();
-    else heroVideo.addEventListener('loadeddata', tryPlay, { once: true });
-    heroVideo.addEventListener('canplay', tryPlay, { once: true });
+
+    tryPlay();
+    heroVideo.addEventListener('loadeddata', tryPlay);
+    heroVideo.addEventListener('canplay', tryPlay);
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+    document.addEventListener('click', tryPlay, { once: true });
+
+    // Only show poster if the video truly fails after both sources
+    let failed = 0;
+    heroVideo.querySelectorAll('source').forEach(src => {
+      src.addEventListener('error', () => {
+        failed += 1;
+        if (failed >= 2 && heroFallback) {
+          heroVideo.style.display = 'none';
+          heroFallback.hidden = false;
+        }
+      });
+    });
+    heroVideo.addEventListener('error', () => {
+      // try next source manually if browser doesn't
+      const sources = [...heroVideo.querySelectorAll('source')];
+      const current = sources.findIndex(s => s.src && heroVideo.currentSrc && s.src.endsWith(heroVideo.currentSrc.split('/').pop()));
+      // keep poster visible underneath; don't force-hide video yet
+    });
   }
 
 

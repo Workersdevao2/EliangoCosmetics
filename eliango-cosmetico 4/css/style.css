@@ -1652,7 +1652,7 @@ body.en [data-lang="pt"] { display: none !important; }
   }
 }
 
-/* ========== SHOP CARD (full-bleed) ========== */
+/* ========== SHOP CARD (full image, Kylie-style) ========== */
 .section-shop {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -1661,69 +1661,93 @@ body.en [data-lang="pt"] { display: none !important; }
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  min-height: 280px;
-  max-height: 520px;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   text-decoration: none;
   color: white;
+  line-height: 0;
 }
 .shop-card-bg {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.6s ease;
 }
 .shop-card:hover .shop-card-bg {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 .shop-card-overlay {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  padding: 2rem;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 3.5rem 1.5rem 2.25rem;
   background: linear-gradient(
     180deg,
-    rgba(44, 42, 41, 0.15) 0%,
-    rgba(44, 42, 41, 0.45) 55%,
-    rgba(44, 42, 41, 0.65) 100%
+    transparent 0%,
+    rgba(44, 42, 41, 0.35) 40%,
+    rgba(44, 42, 41, 0.72) 100%
   );
   text-align: center;
+  line-height: normal;
 }
 .shop-card-overlay h2 {
   font-family: var(--font-display);
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 500;
   color: white;
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
   margin: 0;
 }
+/* Kylie-style white button */
 .shop-card .btn-shop {
   width: auto;
   max-width: none;
   pointer-events: none;
+  background: #fff !important;
+  color: #1a1a1a !important;
+  border: 1px solid #fff !important;
+  border-radius: 2px;
+  padding: 0.7rem 1.85rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  box-shadow: none;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.shop-card:hover .btn-shop {
+  background: transparent !important;
+  color: #fff !important;
+  border-color: #fff !important;
 }
 @media (min-width: 768px) {
-  .shop-card {
-    aspect-ratio: 21 / 9;
-    min-height: 340px;
+  .shop-card-overlay {
+    padding: 4.5rem 2rem 2.75rem;
+    gap: 1.15rem;
   }
   .shop-card-overlay h2 {
-    font-size: 2.35rem;
+    font-size: 2.1rem;
+    letter-spacing: 0.06em;
+  }
+  .shop-card .btn-shop {
+    padding: 0.8rem 2.25rem;
+    font-size: 0.75rem;
   }
 }
 @media (min-width: 1024px) {
   .shop-card-overlay h2 {
-    font-size: 2.65rem;
+    font-size: 2.4rem;
   }
 }
 
