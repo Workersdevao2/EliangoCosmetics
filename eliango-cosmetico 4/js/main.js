@@ -410,65 +410,60 @@ document.addEventListener('DOMContentLoaded', () => {
   updatePlaceholders(savedLang);
 
   // ---------- Hero video playback ----------
-  const heroVideo = document.querySelector('.hero-video');
+  const heroVideo = document.getElementById('heroVideo') || document.querySelector('.hero-video');
   const heroFallback = document.querySelector('.hero-fallback');
   if (heroVideo) {
-    // Critical for autoplay policies
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
     heroVideo.playsInline = true;
     heroVideo.setAttribute('muted', '');
     heroVideo.setAttribute('playsinline', '');
-    heroVideo.setAttribute('webkit-playsinline', '');
 
     const tryPlay = () => {
-      const p = heroVideo.play();
-      if (p && typeof p.then === 'function') {
-        p.then(() => {
-          if (heroFallback) heroFallback.hidden = true;
-          heroVideo.style.display = '';
-        }).catch(() => {
-          // Retry on first user interaction
-        });
-      }
+      try {
+        const p = heroVideo.play();
+        if (p && p.then) {
+          p.then(() => {
+            heroVideo.style.opacity = '1';
+            if (heroFallback) heroFallback.hidden = true;
+          }).catch(() => {});
+        }
+      } catch (e) {}
     };
 
-    tryPlay();
+    // Prefer images path if media fails
+    heroVideo.addEventListener('error', () => {
+      if (heroVideo.src.indexOf('media/') !== -1) {
+        heroVideo.src = 'images/hero-video.mp4';
+        heroVideo.load();
+        tryPlay();
+      } else if (heroFallback) {
+        heroVideo.style.display = 'none';
+        heroFallback.hidden = false;
+      }
+    });
+
+    if (heroVideo.readyState >= 2) tryPlay();
     heroVideo.addEventListener('loadeddata', tryPlay);
     heroVideo.addEventListener('canplay', tryPlay);
     document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
     document.addEventListener('click', tryPlay, { once: true });
-
-    // Only show poster if the video truly fails after both sources
-    let failed = 0;
-    heroVideo.querySelectorAll('source').forEach(src => {
-      src.addEventListener('error', () => {
-        failed += 1;
-        if (failed >= 2 && heroFallback) {
-          heroVideo.style.display = 'none';
-          heroFallback.hidden = false;
-        }
-      });
-    });
-    heroVideo.addEventListener('error', () => {
-      // try next source manually if browser doesn't
-      const sources = [...heroVideo.querySelectorAll('source')];
-      const current = sources.findIndex(s => s.src && heroVideo.currentSrc && s.src.endsWith(heroVideo.currentSrc.split('/').pop()));
-      // keep poster visible underneath; don't force-hide video yet
-    });
+    // iOS sometimes needs load() call
+    heroVideo.load();
+    tryPlay();
   }
 
 
   // ---------- Footer newsletter → WhatsApp ----------
   document.getElementById('footerSignup')?.addEventListener('submit', e => {
     e.preventDefault();
-    const email = e.target.email.value.trim();
-    if (!email) return;
+    const phone = (e.target.phone?.value || '').trim();
+    if (!phone) return;
     const isEn = document.body.classList.contains('en');
     const text = encodeURIComponent(
       isEn
-        ? `Hello! I would like to receive updates from Eliango Cosmético.\nEmail: ${email}`
-        : `Olá! Gostaria de receber novidades da Eliango Cosmético.\nEmail: ${email}`
+        ? `Hello! Please add this WhatsApp number to receive Eliango Cosmético updates:\n${phone}`
+        : `Olá! Por favor adicione este número de WhatsApp para receber novidades da Eliango Cosmético:\n${phone}`
     );
     window.open(`https://wa.me/244938720335?text=${text}`, '_blank');
     e.target.reset();

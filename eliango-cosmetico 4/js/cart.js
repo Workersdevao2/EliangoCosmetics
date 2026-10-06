@@ -171,9 +171,57 @@ function closeCartPanel() {
 
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadges();
-  document.getElementById('cartToggle')?.addEventListener('click', openCartPanel);
-  document.getElementById('cartPanelClose')?.addEventListener('click', closeCartPanel);
-  document.getElementById('cartPanelOverlay')?.addEventListener('click', closeCartPanel);
-  document.getElementById('cartPanelContinue')?.addEventListener('click', closeCartPanel);
-  document.getElementById('cartPanelContinueEn')?.addEventListener('click', closeCartPanel);
+
+  const bindClose = (el) => {
+    if (!el) return;
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeCartPanel();
+    });
+  };
+
+  document.getElementById('cartToggle')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openCartPanel();
+  });
+  bindClose(document.getElementById('cartPanelClose'));
+  bindClose(document.getElementById('cartPanelOverlay'));
+  bindClose(document.getElementById('cartPanelContinue'));
+  bindClose(document.getElementById('cartPanelContinueEn'));
+
+  // Swipe right to close cart panel
+  const panel = document.getElementById('cartPanel');
+  if (panel) {
+    let startX = 0, startY = 0, tracking = false;
+    panel.addEventListener('touchstart', (e) => {
+      const t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+      tracking = true;
+    }, { passive: true });
+    panel.addEventListener('touchmove', (e) => {
+      if (!tracking) return;
+      const t = e.touches[0];
+      const dx = t.clientX - startX;
+      const dy = Math.abs(t.clientY - startY);
+      if (dx > 0 && dx > dy) {
+        panel.style.transform = `translateX(${Math.min(dx, panel.offsetWidth)}px)`;
+      }
+    }, { passive: true });
+    panel.addEventListener('touchend', (e) => {
+      if (!tracking) return;
+      tracking = false;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - startX;
+      panel.style.transform = '';
+      if (dx > 80) closeCartPanel();
+    }, { passive: true });
+  }
+
+  // Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCartPanel();
+  });
 });

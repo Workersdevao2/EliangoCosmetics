@@ -87,13 +87,18 @@
 
   <!-- Hero -->
   <section class="hero" id="inicio">
-    <video class="hero-bg hero-video"
-      autoplay muted loop playsinline webkit-playsinline
-      preload="auto" poster="images/hero-poster.jpg"
-      disablepictureinpicture>
-      <source src="images/hero-video.mp4" type="video/mp4">
-      <source src="media/hero.mp4" type="video/mp4">
-    </video>
+    <video
+      id="heroVideo"
+      class="hero-bg hero-video"
+      src="media/hero.mp4"
+      poster="images/hero-poster.jpg"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+    ></video>
     <img class="hero-bg hero-fallback" src="images/hero-poster.jpg" alt="Eliango Cosmético" hidden>
   </section>
 
@@ -240,8 +245,8 @@
         <img src="images/loja-card.jpg" alt="Eliango Cosmetics Loja" class="shop-card-bg" loading="lazy">
         <div class="shop-card-overlay">
           <h2>Eliango Cosmetics Loja</h2>
-          <span class="btn btn-primary btn-shop" data-lang="pt">Compre agora</span>
-          <span class="btn btn-primary btn-shop" data-lang="en">Shop now</span>
+          <span class="btn-shop" data-lang="pt">compre agora</span>
+          <span class="btn-shop" data-lang="en">shop now</span>
         </div>
       </a>
     </div>
@@ -459,10 +464,10 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-signup">
-        <p class="footer-signup-label" data-lang="pt">receba novidades:</p>
-        <p class="footer-signup-label" data-lang="en">sign up for updates:</p>
+        <p class="footer-signup-label" data-lang="pt">receba novidades no WhatsApp:</p>
+        <p class="footer-signup-label" data-lang="en">get updates on WhatsApp:</p>
         <form class="footer-signup-form" id="footerSignup">
-          <input type="email" name="email" required placeholder="email" data-ph-pt="email" data-ph-en="email address" aria-label="Email">
+          <input type="tel" name="phone" required placeholder="+244 ..." data-ph-pt="+244 ..." data-ph-en="+244 ..." aria-label="WhatsApp" inputmode="tel">
           <button type="submit" data-lang="pt">enviar</button>
           <button type="submit" data-lang="en">submit</button>
         </form>
