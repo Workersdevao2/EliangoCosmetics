@@ -409,21 +409,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updatePlaceholders(savedLang);
 
-  // ---------- Hero video fallback ----------
+  // ---------- Hero video: force play + real error fallback ----------
   const heroVideo = document.querySelector('.hero-video');
   const heroFallback = document.querySelector('.hero-fallback');
-  if (heroVideo && heroFallback) {
-    heroVideo.addEventListener('error', () => {
-      heroVideo.hidden = true;
-      heroFallback.hidden = false;
-    });
-    // if video never starts playing
-    setTimeout(() => {
-      if (heroVideo.readyState < 2) {
-        heroVideo.hidden = true;
-        heroFallback.hidden = false;
+  if (heroVideo) {
+    const showFallback = () => {
+      heroVideo.style.display = 'none';
+      if (heroFallback) heroFallback.hidden = false;
+    };
+    heroVideo.addEventListener('error', showFallback);
+    // Explicit play() helps when autoplay is blocked or delayed
+    const tryPlay = () => {
+      const p = heroVideo.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // muted autoplay should work; if not, keep trying once more on user gesture is not needed for muted
+        });
       }
-    }, 4000);
+    };
+    if (heroVideo.readyState >= 2) tryPlay();
+    else heroVideo.addEventListener('loadeddata', tryPlay, { once: true });
+    heroVideo.addEventListener('canplay', tryPlay, { once: true });
   }
 
 

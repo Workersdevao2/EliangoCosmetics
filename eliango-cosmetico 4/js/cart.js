@@ -12,6 +12,9 @@ function getCart() {
 function saveCart(items) {
   localStorage.setItem(CART_KEY, JSON.stringify(items));
   updateCartBadges();
+  if (document.getElementById('cartPanel')?.classList.contains('open') && typeof renderCartPanel === 'function') {
+    renderCartPanel();
+  }
 }
 
 function addToCart(product) {
@@ -88,3 +91,89 @@ const COURSES = [
   'Estética Geral',
   'Barbearia Profissional',
 ];
+
+
+// ---------- Mini cart panel ----------
+function isEnLang() {
+  return document.body.classList.contains('en');
+}
+
+function renderCartPanel() {
+  const body = document.getElementById('cartPanelBody');
+  const footer = document.getElementById('cartPanelFooter');
+  const subEl = document.getElementById('cartPanelSubtotal');
+  if (!body) return;
+
+  const cart = getCart();
+  const en = isEnLang();
+
+  if (!cart.length) {
+    body.innerHTML = `<p class="cart-panel-empty">${en ? 'Your cart is empty' : 'O seu carrinho está vazio'}</p>`;
+    if (footer) footer.style.display = 'none';
+    return;
+  }
+  if (footer) footer.style.display = '';
+
+  body.innerHTML = cart.map(i => {
+    const title = en ? i.titleEn : i.titlePt;
+    return `<div class="cart-panel-item" data-id="${i.id}">
+      <img src="${i.img}" alt="${title}">
+      <div>
+        <h4>${title}</h4>
+        <div class="meta">${i.price} × ${i.qty}</div>
+        <div class="row-actions">
+          <button type="button" data-act="dec" aria-label="-">−</button>
+          <span>${i.qty}</span>
+          <button type="button" data-act="inc" aria-label="+">+</button>
+          <button type="button" class="rm" data-act="rm">${en ? 'remove' : 'remover'}</button>
+        </div>
+      </div>
+      <div class="line-total">${formatKz(i.priceNum * i.qty)}</div>
+    </div>`;
+  }).join('');
+
+  if (subEl) subEl.textContent = formatKz(cartTotal());
+
+  body.querySelectorAll('.cart-panel-item').forEach(row => {
+    const id = row.dataset.id;
+    row.querySelectorAll('[data-act]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = getCart().find(x => x.id === id);
+        if (!item) return;
+        if (btn.dataset.act === 'inc') setQty(id, item.qty + 1);
+        if (btn.dataset.act === 'dec') {
+          if (item.qty <= 1) removeFromCart(id);
+          else setQty(id, item.qty - 1);
+        }
+        if (btn.dataset.act === 'rm') removeFromCart(id);
+        renderCartPanel();
+        // also refresh checkout page if present
+        if (typeof window.__renderCheckout === 'function') window.__renderCheckout();
+      });
+    });
+  });
+}
+
+function openCartPanel() {
+  renderCartPanel();
+  document.getElementById('cartPanel')?.classList.add('open');
+  document.getElementById('cartPanelOverlay')?.classList.add('open');
+  document.getElementById('cartPanel')?.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCartPanel() {
+  document.getElementById('cartPanel')?.classList.remove('open');
+  document.getElementById('cartPanelOverlay')?.classList.remove('open');
+  document.getElementById('cartPanel')?.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartBadges();
+  document.getElementById('cartToggle')?.addEventListener('click', openCartPanel);
+  document.getElementById('cartPanelClose')?.addEventListener('click', closeCartPanel);
+  document.getElementById('cartPanelOverlay')?.addEventListener('click', closeCartPanel);
+  document.getElementById('cartPanelContinue')?.addEventListener('click', closeCartPanel);
+  document.getElementById('cartPanelContinueEn')?.addEventListener('click', closeCartPanel);
+});

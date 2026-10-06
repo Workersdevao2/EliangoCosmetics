@@ -47,10 +47,10 @@
         </div>
       </nav>
 
-      <a href="checkout.html" class="header-cart" aria-label="Carrinho">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
+      <button type="button" class="header-cart" id="cartToggle" aria-label="Carrinho">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
         <span class="cart-badge" data-cart-count style="display:none">0</span>
-      </a>
+      </button>
     </div>
   </header>
 
@@ -87,7 +87,7 @@
 
   <!-- Hero -->
   <section class="hero" id="inicio">
-    <video class="hero-bg hero-video" autoplay muted loop playsinline poster="images/hero-poster.jpg">
+    <video class="hero-bg hero-video" autoplay muted loop playsinline preload="auto" poster="images/hero-poster.jpg">
       <source src="media/hero.mp4" type="video/mp4">
     </video>
     <img class="hero-bg hero-fallback" src="images/hero-poster.jpg" alt="Eliango Cosmético" hidden>
@@ -433,6 +433,29 @@
   </section>
 
   <!-- Footer -->
+  
+  <!-- Mini cart panel -->
+  <div class="cart-panel-overlay" id="cartPanelOverlay"></div>
+  <aside class="cart-panel" id="cartPanel" aria-hidden="true">
+    <div class="cart-panel-header">
+      <h3 data-lang="pt">Carrinho</h3>
+      <h3 data-lang="en">Cart</h3>
+      <button type="button" class="cart-panel-close" id="cartPanelClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="cart-panel-body" id="cartPanelBody"></div>
+    <div class="cart-panel-footer" id="cartPanelFooter">
+      <div class="sub">
+        <span data-lang="pt">Subtotal</span>
+        <span data-lang="en">Subtotal</span>
+        <strong id="cartPanelSubtotal">0 Kz</strong>
+      </div>
+      <a href="checkout.html" class="btn btn-primary" data-lang="pt">Finalizar pedido</a>
+      <a href="checkout.html" class="btn btn-primary" data-lang="en">Checkout</a>
+      <button type="button" class="btn btn-outline" id="cartPanelContinue" data-lang="pt">Continuar a comprar</button>
+      <button type="button" class="btn btn-outline" id="cartPanelContinueEn" data-lang="en">Continue shopping</button>
+    </div>
+  </aside>
+
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-signup">

@@ -40,10 +40,10 @@
           <button class="lang-btn" data-set-lang="en">EN</button>
         </div>
       </nav>
-            <a href="checkout.html" class="header-cart" aria-label="Carrinho">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
+      <button type="button" class="header-cart" id="cartToggle" aria-label="Carrinho">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
         <span class="cart-badge" data-cart-count style="display:none">0</span>
-      </a>
+      </button>
     </div>
   </header>
 
@@ -78,8 +78,6 @@
   <div class="page-hero page-hero-img">
     <img src="images/hero.jpg" alt="Eliango Cosmético" class="page-hero-bg">
     <div class="container page-hero-content">
-      <span class="eyebrow" data-lang="pt">Eliango Cosmetics</span>
-      <span class="eyebrow" data-lang="en">Eliango Cosmetics</span>
       <h1 data-lang="pt">Loja</h1>
       <h1 data-lang="en">Shop</h1>
       <p data-lang="pt">Perucas, skincare, maquiagem, cabelo e fragrâncias</p>
@@ -89,18 +87,6 @@
 
   <section class="page-section">
     <div class="container">
-      <div class="cart-bar">
-        <div class="cart-count">
-          <span data-lang="pt">Carrinho:</span>
-          <span data-lang="en">Cart:</span>
-          <strong data-cart-label>0</strong>
-          <span data-lang="pt">itens</span>
-          <span data-lang="en">items</span>
-        </div>
-        <a href="checkout.html" class="btn btn-primary btn-sm" data-lang="pt">Ver carrinho / Checkout</a>
-        <a href="checkout.html" class="btn btn-primary btn-sm" data-lang="en">View cart / Checkout</a>
-      </div>
-
       <div class="products-tabs" id="shopTabs">
         <button class="tab-btn active" data-tab="all" data-lang="pt">Todos</button>
         <button class="tab-btn active" data-tab="all" data-lang="en">All</button>
@@ -118,6 +104,29 @@
       <div class="products-page-grid" id="shopGrid"></div>
     </div>
   </section>
+
+  
+  <!-- Mini cart panel -->
+  <div class="cart-panel-overlay" id="cartPanelOverlay"></div>
+  <aside class="cart-panel" id="cartPanel" aria-hidden="true">
+    <div class="cart-panel-header">
+      <h3 data-lang="pt">Carrinho</h3>
+      <h3 data-lang="en">Cart</h3>
+      <button type="button" class="cart-panel-close" id="cartPanelClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="cart-panel-body" id="cartPanelBody"></div>
+    <div class="cart-panel-footer" id="cartPanelFooter">
+      <div class="sub">
+        <span data-lang="pt">Subtotal</span>
+        <span data-lang="en">Subtotal</span>
+        <strong id="cartPanelSubtotal">0 Kz</strong>
+      </div>
+      <a href="checkout.html" class="btn btn-primary" data-lang="pt">Finalizar pedido</a>
+      <a href="checkout.html" class="btn btn-primary" data-lang="en">Checkout</a>
+      <button type="button" class="btn btn-outline" id="cartPanelContinue" data-lang="pt">Continuar a comprar</button>
+      <button type="button" class="btn btn-outline" id="cartPanelContinueEn" data-lang="en">Continue shopping</button>
+    </div>
+  </aside>
 
   <footer class="footer">
     <div class="container footer-inner">
@@ -191,7 +200,7 @@
                 <h4>${title}</h4>
                 <div class="price">${p.price}</div>
                 <button type="button" class="btn btn-primary btn-sm add-cart" data-id="${p.id}" ${unavail ? 'disabled' : ''}>
-                  ${isEn() ? 'Add to cart' : 'Adicionar'}
+                  ${unavail ? (isEn() ? 'unavailable' : 'indisponível') : (isEn() ? 'add to cart — ' + p.price : 'adicionar — ' + p.price)}
                 </button>
               </div>
             </article>`;
@@ -202,8 +211,11 @@
             const p = PRODUCTS.find(x => x.id === btn.dataset.id);
             if (!p || p.tag === 'unavailable') return;
             addToCart(p);
-            btn.textContent = isEn() ? 'Added ✓' : 'Adicionado ✓';
-            setTimeout(() => { btn.textContent = isEn() ? 'Add to cart' : 'Adicionar'; }, 1200);
+            btn.textContent = isEn() ? 'added ✓' : 'adicionado ✓';
+            setTimeout(() => {
+              btn.textContent = isEn() ? 'add to cart — ' + p.price : 'adicionar — ' + p.price;
+            }, 1000);
+            if (typeof openCartPanel === 'function') openCartPanel();
           });
         });
       }
