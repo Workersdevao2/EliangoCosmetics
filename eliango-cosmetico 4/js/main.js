@@ -409,48 +409,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updatePlaceholders(savedLang);
 
-  // ---------- Hero video playback ----------
-  const heroVideo = document.getElementById('heroVideo') || document.querySelector('.hero-video');
-  const heroFallback = document.querySelector('.hero-fallback');
+  // ---------- Hero video (backup play; main logic is inline in index.html) ----------
+  const heroVideo = document.getElementById('heroVideo');
   if (heroVideo) {
     heroVideo.muted = true;
-    heroVideo.defaultMuted = true;
     heroVideo.playsInline = true;
-    heroVideo.setAttribute('muted', '');
-    heroVideo.setAttribute('playsinline', '');
-
-    const tryPlay = () => {
-      try {
-        const p = heroVideo.play();
-        if (p && p.then) {
-          p.then(() => {
-            heroVideo.style.opacity = '1';
-            if (heroFallback) heroFallback.hidden = true;
-          }).catch(() => {});
-        }
-      } catch (e) {}
-    };
-
-    // Prefer images path if media fails
-    heroVideo.addEventListener('error', () => {
-      if (heroVideo.src.indexOf('media/') !== -1) {
-        heroVideo.src = 'images/hero-video.mp4';
-        heroVideo.load();
-        tryPlay();
-      } else if (heroFallback) {
-        heroVideo.style.display = 'none';
-        heroFallback.hidden = false;
-      }
-    });
-
-    if (heroVideo.readyState >= 2) tryPlay();
-    heroVideo.addEventListener('loadeddata', tryPlay);
-    heroVideo.addEventListener('canplay', tryPlay);
-    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
-    document.addEventListener('click', tryPlay, { once: true });
-    // iOS sometimes needs load() call
-    heroVideo.load();
-    tryPlay();
+    const p = heroVideo.play();
+    if (p && p.catch) p.catch(function () {});
   }
 
 

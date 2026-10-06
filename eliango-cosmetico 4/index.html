@@ -90,16 +90,46 @@
     <video
       id="heroVideo"
       class="hero-bg hero-video"
-      src="media/hero.mp4"
-      poster="images/hero-poster.jpg"
+      src="/media/hero.mp4"
+      poster="/images/hero-poster.jpg"
       autoplay
       muted
+      defaultMuted
       loop
       playsinline
       webkit-playsinline
       preload="auto"
     ></video>
-    <img class="hero-bg hero-fallback" src="images/hero-poster.jpg" alt="Eliango Cosmético" hidden>
+    <img class="hero-bg hero-fallback" src="/images/hero-poster.jpg" alt="Eliango Cosmético" hidden>
+    <script>
+      (function () {
+        var v = document.getElementById('heroVideo');
+        if (!v) return;
+        v.muted = true;
+        v.defaultMuted = true;
+        v.playsInline = true;
+        function play() {
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        }
+        play();
+        v.addEventListener('canplay', play);
+        v.addEventListener('loadeddata', play);
+        document.addEventListener('touchstart', play, { once: true, passive: true });
+        document.addEventListener('click', play, { once: true });
+        v.addEventListener('error', function () {
+          if (v.getAttribute('src') !== '/images/hero-video.mp4') {
+            v.src = '/images/hero-video.mp4';
+            v.load();
+            play();
+          } else {
+            v.style.display = 'none';
+            var fb = document.querySelector('.hero-fallback');
+            if (fb) fb.hidden = false;
+          }
+        });
+      })();
+    </script>
   </section>
 
   <!-- About -->
@@ -244,9 +274,8 @@
       <a href="produtos.html" class="shop-card reveal">
         <img src="images/loja-card.jpg" alt="Eliango Cosmetics Loja" class="shop-card-bg" loading="lazy">
         <div class="shop-card-overlay">
-          <h2>Eliango Cosmetics Loja</h2>
-          <span class="btn-shop" data-lang="pt">compre agora</span>
-          <span class="btn-shop" data-lang="en">shop now</span>
+          <h2>Eliango Cosmético Loja</h2>
+          <span class="btn-shop">compre agora</span>
         </div>
       </a>
     </div>

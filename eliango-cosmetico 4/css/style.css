@@ -440,6 +440,10 @@ body.drawer-open {
 }
 .hero-video {
   pointer-events: none;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  background: #1a1a1a;
 }
 .hero::before {
   content: '';
@@ -447,11 +451,12 @@ body.drawer-open {
   inset: 0;
   background: linear-gradient(
     165deg,
-    rgba(44, 42, 41, 0.55) 0%,
-    rgba(44, 42, 41, 0.4) 45%,
-    rgba(44, 42, 41, 0.65) 100%
+    rgba(44, 42, 41, 0.25) 0%,
+    rgba(44, 42, 41, 0.2) 45%,
+    rgba(44, 42, 41, 0.4) 100%
   );
   z-index: 1;
+  pointer-events: none;
 }
 .hero-content {
   position: relative;
