@@ -87,49 +87,23 @@
 
   <!-- Hero -->
   <section class="hero" id="inicio">
-    <video
-      id="heroVideo"
-      class="hero-bg hero-video"
-      src="/media/hero.mp4"
-      poster="/images/hero-poster.jpg"
-      autoplay
-      muted
-      defaultMuted
-      loop
-      playsinline
-      webkit-playsinline
-      preload="auto"
-    ></video>
-    <img class="hero-bg hero-fallback" src="/images/hero-poster.jpg" alt="Eliango Cosmético" hidden>
-    <script>
-      (function () {
-        var v = document.getElementById('heroVideo');
-        if (!v) return;
-        v.muted = true;
-        v.defaultMuted = true;
-        v.playsInline = true;
-        function play() {
-          var p = v.play();
-          if (p && p.catch) p.catch(function () {});
-        }
-        play();
-        v.addEventListener('canplay', play);
-        v.addEventListener('loadeddata', play);
-        document.addEventListener('touchstart', play, { once: true, passive: true });
-        document.addEventListener('click', play, { once: true });
-        v.addEventListener('error', function () {
-          if (v.getAttribute('src') !== '/images/hero-video.mp4') {
-            v.src = '/images/hero-video.mp4';
-            v.load();
-            play();
-          } else {
-            v.style.display = 'none';
-            var fb = document.querySelector('.hero-fallback');
-            if (fb) fb.hidden = false;
-          }
-        });
-      })();
-    </script>
+    <div class="hero-media" aria-hidden="true">
+      <video
+        class="hero-video"
+        id="heroVideo"
+        muted
+        autoplay
+        playsinline
+        webkit-playsinline
+        loop
+        preload="auto"
+        poster="images/hero-poster.jpg"
+      >
+        <source src="media/hero.mp4" type="video/mp4">
+      </video>
+      <img class="hero-still" id="heroStill" src="images/hero-poster.jpg" alt="">
+      <div class="hero-overlay"></div>
+    </div>
   </section>
 
   <!-- About -->
@@ -458,6 +432,8 @@
         <button type="button" class="gallery-item" data-src="images/gallery6.jpg" aria-label="Ver foto 6"><img src="images/gallery6.jpg" alt="Trabalho 6" loading="lazy"></button>
         <button type="button" class="gallery-item" data-src="images/gallery7.jpg" aria-label="Ver foto 7"><img src="images/gallery7.jpg" alt="Trabalho 7" loading="lazy"></button>
         <button type="button" class="gallery-item" data-src="images/gallery8.jpg" aria-label="Ver foto 8"><img src="images/gallery8.jpg" alt="Trabalho 8" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery9.jpg" aria-label="Ver foto 9"><img src="images/gallery9.jpg" alt="Trabalho 9" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery10.jpg" aria-label="Ver foto 10"><img src="images/gallery10.jpg" alt="Trabalho 10" loading="lazy"></button>
       </div>
       <div class="gallery-cta">
         <a href="https://www.instagram.com/eliangocosmetico/" target="_blank" rel="noopener" class="btn btn-outline-dark" data-lang="pt">Ver no Instagram</a>

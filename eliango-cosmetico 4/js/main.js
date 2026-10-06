@@ -409,13 +409,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updatePlaceholders(savedLang);
 
-  // ---------- Hero video (backup play; main logic is inline in index.html) ----------
+  // ---------- Hero: single looping video (Safari-safe autoplay, glamorize pattern) ----------
   const heroVideo = document.getElementById('heroVideo');
+  const heroStill = document.getElementById('heroStill');
   if (heroVideo) {
     heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
     heroVideo.playsInline = true;
-    const p = heroVideo.play();
-    if (p && p.catch) p.catch(function () {});
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('webkit-playsinline', '');
+    heroVideo.loop = true;
+
+    const revealVideo = () => {
+      heroVideo.classList.add('is-visible');
+      if (heroStill) heroStill.classList.add('is-hidden');
+    };
+
+    const tryPlayHero = () => {
+      const p = heroVideo.play();
+      if (p && typeof p.catch === 'function') {
+        p.then(revealVideo).catch(() => {
+          setTimeout(() => {
+            heroVideo.muted = true;
+            heroVideo.play().then(revealVideo).catch(() => {});
+          }, 300);
+        });
+      } else {
+        revealVideo();
+      }
+    };
+
+    tryPlayHero();
+    heroVideo.addEventListener('canplay', tryPlayHero);
+    heroVideo.addEventListener('loadeddata', tryPlayHero);
+    // If video is already playing (autoplay worked)
+    heroVideo.addEventListener('playing', revealVideo);
+    document.addEventListener('touchstart', tryPlayHero, { once: true, passive: true });
+    document.addEventListener('click', tryPlayHero, { once: true });
   }
 
 
