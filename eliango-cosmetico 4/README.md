@@ -5,6 +5,11 @@ Site estático do salão Eliango Cosmético (Elizabeth Raimundo).
 ## Design
 **Minimalist Luxury** — linhas finas, espaço generoso, tipografia leve, rosa suave.
 
+- Display: Cormorant Garamond (títulos) + Poppins (UI/corpo)
+- Header: barra de anúncio + transparente no hero → sólido no scroll + drawer mobile à esquerda
+- CTAs no hero, Sobre com estatísticas, depoimentos, galeria com lightbox
+- Footer tipográfico + ícones SVG sociais + botão WhatsApp flutuante
+
 ## Stack
 - HTML / CSS / JS puro
 - Pronto para GitHub + Cloudflare Pages

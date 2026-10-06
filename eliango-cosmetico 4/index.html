@@ -7,25 +7,35 @@
   <meta name="description" content="Eliango Cosmético - Maquiagem, Cabeleireiro, Estética e Formações profissionais em Benfica-Kifica, Luanda. Elevamos a sua autoestima.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="images/logo.jpg">
 </head>
 <body>
+  <!-- Announcement bar -->
+  <div class="announce" id="announce">
+    <a href="https://wa.me/244938720335" target="_blank" rel="noopener" class="announce-link">
+      <span data-lang="pt">Formações abertas · <em>Inscreva-se pelo WhatsApp</em></span>
+      <span data-lang="en">Courses open · <em>Enrol via WhatsApp</em></span>
+    </a>
+  </div>
+
   <!-- Header -->
-  <header class="header">
-    <div class="container header-inner">
-      <a href="#inicio" class="logo">
-        <img src="images/logo.jpg" alt="Eliango Cosmético">
-        <div class="logo-text">
-          Eliango
-          <span>Cosmético</span>
-        </div>
-      </a>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <!-- Mobile hamburger (left) -->
       <button class="nav-toggle" aria-label="Menu" id="navToggle">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" id="nav">
+
+      <!-- Brand (text only, centered) -->
+      <a href="#inicio" class="brand">
+        <span class="brand-name">Eliango</span>
+        <span class="brand-tag">Cosmético</span>
+      </a>
+
+      <!-- Desktop navigation (below brand on large screens via CSS) -->
+      <nav class="nav-desktop" id="navDesktop">
         <ul>
           <li><a href="#inicio" data-lang="pt">Início</a><a href="#inicio" data-lang="en">Home</a></li>
           <li><a href="#sobre" data-lang="pt">Sobre</a><a href="#sobre" data-lang="en">About</a></li>
@@ -39,8 +49,45 @@
           <button class="lang-btn" data-set-lang="en">EN</button>
         </div>
       </nav>
+
+      <!-- Spacer for mobile balance (right side) -->
+      <div class="header-spacer" aria-hidden="true"></div>
     </div>
   </header>
+
+  <!-- Mobile left drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <a href="#inicio" class="drawer-brand">
+        <span class="brand-name">Eliango</span>
+        <span class="brand-tag">Cosmético</span>
+      </a>
+      <button class="drawer-close" id="drawerClose" aria-label="Close">
+        <span></span><span></span>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+      <ul>
+        <li><a href="#inicio" data-lang="pt">Início</a><a href="#inicio" data-lang="en">Home</a></li>
+        <li><a href="#sobre" data-lang="pt">Sobre</a><a href="#sobre" data-lang="en">About</a></li>
+        <li><a href="#servicos" data-lang="pt">Serviços</a><a href="#servicos" data-lang="en">Services</a></li>
+        <li><a href="#produtos" data-lang="pt">Produtos</a><a href="#produtos" data-lang="en">Products</a></li>
+        <li><a href="#formacoes" data-lang="pt">Formações</a><a href="#formacoes" data-lang="en">Courses</a></li>
+        <li><a href="#contacto" data-lang="pt">Contacto</a><a href="#contacto" data-lang="en">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="drawer-footer">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-set-lang="pt">PT</button>
+        <button class="lang-btn" data-set-lang="en">EN</button>
+      </div>
+      <a href="https://wa.me/244938720335" class="drawer-wa" target="_blank" rel="noopener">
+        <span data-lang="pt">WhatsApp</span>
+        <span data-lang="en">WhatsApp</span>
+      </a>
+    </div>
+  </aside>
 
   <!-- Hero -->
   <section class="hero" id="inicio">
@@ -52,22 +99,49 @@
       <h1 data-lang="en">We elevate your self-esteem through makeup</h1>
       <p data-lang="pt">Maquiagem profissional, cabeleireiro, estética e formações.</p>
       <p data-lang="en">Professional makeup, hairdressing, aesthetics and training.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/244938720335?text=Ol%C3%A1!%20Gostaria%20de%20marcar%20um%20servi%C3%A7o." class="btn btn-primary" target="_blank" rel="noopener" data-lang="pt">Marcar agora</a>
+        <a href="https://wa.me/244938720335?text=Hello!%20I%20would%20like%20to%20book%20a%20service." class="btn btn-primary" target="_blank" rel="noopener" data-lang="en">Book now</a>
+        <a href="#servicos" class="btn btn-outline" data-lang="pt">Ver serviços</a>
+        <a href="#servicos" class="btn btn-outline" data-lang="en">View services</a>
+      </div>
     </div>
   </section>
 
   <!-- About -->
   <section class="section" id="sobre">
     <div class="container">
-      <div class="about-grid">
+      <div class="about-grid reveal">
         <div class="about-photo">
           <img src="images/owner.jpg" alt="Elizabeth Raimundo - Fundadora" class="about-img">
           <span class="about-name">Elizabeth Raimundo</span>
         </div>
         <div class="about-text">
+          <span class="eyebrow" data-lang="pt">A nossa história</span>
+          <span class="eyebrow" data-lang="en">Our story</span>
+          <h2 data-lang="pt">De uma mala à transformação de vidas</h2>
+          <h2 data-lang="en">From a bag to transforming lives</h2>
           <p data-lang="pt">Comecei a Eliango Cosmético com uma mala e muita determinação. Em 2020 cobrava 5.000 Kz por maquiagem profissional. Hoje temos um salão completo, uma equipa dedicada e formamos mulheres que transformam a maquiagem numa fonte de renda.</p>
           <p data-lang="en">I started Eliango Cosmético with a bag and a lot of determination. In 2020 I charged 5,000 Kz for professional makeup. Today we have a full salon, a dedicated team and we train women who turn makeup into a source of income.</p>
           <p data-lang="pt">Recomecei várias vezes, enfrentei desafios e inveja, mas Deus nunca me deixou desistir. O nosso propósito é transformar vidas — não só com técnica, mas com posicionamento e confiança.</p>
           <p data-lang="en">I restarted several times, faced challenges and envy, but God never let me give up. Our purpose is to transform lives — not only with technique, but with positioning and confidence.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <span class="stat-num">2020</span>
+              <span class="stat-label" data-lang="pt">Fundação</span>
+              <span class="stat-label" data-lang="en">Founded</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">6+</span>
+              <span class="stat-label" data-lang="pt">Formações</span>
+              <span class="stat-label" data-lang="en">Courses</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">Benfica</span>
+              <span class="stat-label" data-lang="pt">Luanda</span>
+              <span class="stat-label" data-lang="en">Luanda</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -76,13 +150,16 @@
   <!-- Services -->
   <section class="section" id="servicos">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title reveal">
+        <span class="eyebrow" data-lang="pt">O que fazemos</span>
+        <span class="eyebrow" data-lang="en">What we do</span>
         <h2 data-lang="pt">Nossos Serviços</h2>
         <h2 data-lang="en">Our Services</h2>
+        <div class="title-line"></div>
         <p data-lang="pt">Toque num cartão para ver detalhes e marcar</p>
         <p data-lang="en">Tap a card to see details and book</p>
       </div>
-      <div class="services-grid">
+      <div class="services-grid reveal">
         <article class="service-card" data-details='{"titlePt":"Maquiagem Profissional","titleEn":"Professional Makeup","descPt":"Maquiagem social, noiva, festas e eventos. Técnicas profissionais para realçar a sua beleza natural com acabamento impecável.","descEn":"Social, bridal, party and event makeup. Professional techniques to enhance your natural beauty with an impeccable finish.","price":"A partir de 8.000 Kz","img":"images/makeup.jpg","detailsPt":["Maquiagem social e de festa","Maquiagem de noiva","Maquiagem para sessões fotográficas","Produtos profissionais de longa duração","Consulta de estilo incluída"],"detailsEn":["Social and party makeup","Bridal makeup","Makeup for photo shoots","Long-lasting professional products","Style consultation included"]}'>
           <img class="bg" src="images/makeup.jpg" alt="Maquiagem profissional" loading="lazy">
           <div class="service-body">
@@ -170,9 +247,12 @@
   <!-- Products -->
   <section class="section" id="produtos">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title reveal">
+        <span class="eyebrow" data-lang="pt">Loja</span>
+        <span class="eyebrow" data-lang="en">Shop</span>
         <h2 data-lang="pt">Produtos à Venda</h2>
         <h2 data-lang="en">Products for Sale</h2>
+        <div class="title-line"></div>
         <p data-lang="pt">Toque num produto para ver imagens, detalhes e encomendar</p>
         <p data-lang="en">Tap a product to see images, details and order</p>
       </div>
@@ -191,7 +271,7 @@
         <button class="tab-btn" data-tab="fragrance" data-lang="en">Fragrances</button>
       </div>
 
-      <div class="products-grid" id="productsGrid">
+      <div class="products-grid reveal" id="productsGrid">
         <!-- Wigs -->
         <div class="product-card" data-cat="wigs" data-details='{"titlePt":"Peruca Lace Front","titleEn":"Lace Front Wig","descPt":"Peruca lace front de alta qualidade, acabamento natural e confortável para uso diário ou eventos.","descEn":"High-quality lace front wig, natural finish and comfortable for daily wear or events.","price":"35.000 Kz","tag":"new","img":"images/wig1.jpg","images":["images/wig1.jpg","images/wig-alt.jpg","images/wig2.jpg"],"detailsPt":["Material: fibra premium","Base lace front","Ajustável","Cor: vários tons disponíveis","Ideal para uso diário e eventos"],"detailsEn":["Material: premium fiber","Lace front base","Adjustable","Color: several tones available","Ideal for daily wear and events"]}'>
           <div class="product-img">
@@ -388,13 +468,16 @@
   <!-- Courses -->
   <section class="section" id="formacoes">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title reveal">
+        <span class="eyebrow" data-lang="pt">Aprenda connosco</span>
+        <span class="eyebrow" data-lang="en">Learn with us</span>
         <h2 data-lang="pt">Formações Profissionais</h2>
         <h2 data-lang="en">Professional Courses</h2>
+        <div class="title-line"></div>
         <p data-lang="pt">Toque num cartão para ver o programa e inscrever-se</p>
         <p data-lang="en">Tap a card to see the program and enroll</p>
       </div>
-      <div class="courses-grid">
+      <div class="courses-grid reveal">
         <article class="course-card" data-details='{"titlePt":"Maquiagem Profissional","titleEn":"Professional Makeup","descPt":"Do zero ao profissional. Técnicas completas para começar a trabalhar e gerar rendimento com maquiagem.","descEn":"From zero to professional. Complete techniques to start working and generate income with makeup.","schedulePt":"Turmas limitadas · 8 vagas","scheduleEn":"Limited classes · 8 spots","img":"images/course-makeup.jpg","detailsPt":["Teoria e prática de maquiagem","Maquiagem social e noiva","Produtos e ferramentas profissionais","Posicionamento e precificação","Certificado de participação"],"detailsEn":["Makeup theory and practice","Social and bridal makeup","Professional products and tools","Positioning and pricing","Participation certificate"]}'>
           <img class="bg" src="images/course-makeup.jpg" alt="Formação maquiagem" loading="lazy">
           <div class="course-body">
@@ -496,26 +579,71 @@
     </div>
   </section>
 
+  <!-- Testimonials -->
+  <section class="section section-testimonials" id="depoimentos">
+    <div class="container">
+      <div class="section-title reveal">
+        <span class="eyebrow" data-lang="pt">Confiança</span>
+        <span class="eyebrow" data-lang="en">Trust</span>
+        <h2 data-lang="pt">O que dizem as nossas clientes</h2>
+        <h2 data-lang="en">What our clients say</h2>
+        <div class="title-line"></div>
+      </div>
+      <div class="testimonials-grid reveal">
+        <blockquote class="testimonial">
+          <p data-lang="pt">“A maquiagem de noiva ficou impecável. A Elizabeth entende o que realça cada rosto. Recomendo de olhos fechados.”</p>
+          <p data-lang="en">“The bridal makeup was flawless. Elizabeth knows what enhances every face. I recommend her without hesitation.”</p>
+          <footer>
+            <strong>Ana M.</strong>
+            <span data-lang="pt">Maquiagem de noiva</span>
+            <span data-lang="en">Bridal makeup</span>
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p data-lang="pt">“Fiz a formação de maquiagem e hoje já atendo as minhas próprias clientes. Ambiente profissional e muito apoio.”</p>
+          <p data-lang="en">“I took the makeup course and now I already serve my own clients. Professional environment and great support.”</p>
+          <footer>
+            <strong>Carla S.</strong>
+            <span data-lang="pt">Formação de maquiagem</span>
+            <span data-lang="en">Makeup course</span>
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p data-lang="pt">“Limpeza facial excelente e a equipa é atenciosa. O salão transmite cuidado em cada detalhe.”</p>
+          <p data-lang="en">“Excellent facial and the team is attentive. The salon shows care in every detail.”</p>
+          <footer>
+            <strong>Joana R.</strong>
+            <span data-lang="pt">Limpeza facial</span>
+            <span data-lang="en">Facial cleansing</span>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
   <!-- Gallery -->
   <section class="section" id="galeria">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title reveal">
+        <span class="eyebrow" data-lang="pt">Trabalhos</span>
+        <span class="eyebrow" data-lang="en">Work</span>
         <h2 data-lang="pt">Galeria</h2>
         <h2 data-lang="en">Gallery</h2>
+        <div class="title-line"></div>
         <p data-lang="pt">Alguns dos nossos trabalhos</p>
         <p data-lang="en">Some of our work</p>
       </div>
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="images/gallery1.jpg" alt="Trabalho 1" loading="lazy"></div>
-        <div class="gallery-item"><img src="images/gallery2.jpg" alt="Trabalho 2" loading="lazy"></div>
-        <div class="gallery-item"><img src="images/gallery3.jpg" alt="Trabalho 3" loading="lazy"></div>
-        <div class="gallery-item"><img src="images/gallery4.jpg" alt="Trabalho 4" loading="lazy"></div>
-        <div class="gallery-item"><img src="images/gallery5.jpg" alt="Trabalho 5" loading="lazy"></div>
-        <div class="gallery-item"><img src="images/gallery6.jpg" alt="Trabalho 6" loading="lazy"></div>
-        <div class="gallery-item"><img src="images/gallery7.jpg" alt="Trabalho 7" loading="lazy"></div>
-        <div class="gallery-item"><img src="images/gallery8.jpg" alt="Trabalho 8" loading="lazy"></div>
+      <div class="gallery-grid reveal">
+        <button type="button" class="gallery-item" data-src="images/gallery1.jpg" aria-label="Ver foto 1"><img src="images/gallery1.jpg" alt="Trabalho 1" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery2.jpg" aria-label="Ver foto 2"><img src="images/gallery2.jpg" alt="Trabalho 2" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery3.jpg" aria-label="Ver foto 3"><img src="images/gallery3.jpg" alt="Trabalho 3" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery4.jpg" aria-label="Ver foto 4"><img src="images/gallery4.jpg" alt="Trabalho 4" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery5.jpg" aria-label="Ver foto 5"><img src="images/gallery5.jpg" alt="Trabalho 5" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery6.jpg" aria-label="Ver foto 6"><img src="images/gallery6.jpg" alt="Trabalho 6" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery7.jpg" aria-label="Ver foto 7"><img src="images/gallery7.jpg" alt="Trabalho 7" loading="lazy"></button>
+        <button type="button" class="gallery-item" data-src="images/gallery8.jpg" aria-label="Ver foto 8"><img src="images/gallery8.jpg" alt="Trabalho 8" loading="lazy"></button>
       </div>
-      <div style="text-align:center;margin-top:1.5rem;">
+      <div class="gallery-cta">
         <a href="https://www.instagram.com/eliangocosmetico/" target="_blank" rel="noopener" class="btn btn-outline-dark" data-lang="pt">Ver no Instagram</a>
         <a href="https://www.instagram.com/eliangocosmetico/" target="_blank" rel="noopener" class="btn btn-outline-dark" data-lang="en">See on Instagram</a>
       </div>
@@ -525,13 +653,16 @@
   <!-- Contact -->
   <section class="section" id="contacto">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title reveal">
+        <span class="eyebrow" data-lang="pt">Fale connosco</span>
+        <span class="eyebrow" data-lang="en">Get in touch</span>
         <h2 data-lang="pt">Contacto</h2>
         <h2 data-lang="en">Contact</h2>
+        <div class="title-line"></div>
         <p data-lang="pt">Estamos em Benfica-Kifica, à sua espera</p>
         <p data-lang="en">We are in Benfica-Kifica, waiting for you</p>
       </div>
-      <div class="contact-grid">
+      <div class="contact-grid reveal">
         <div class="contact-info">
           <h3 data-lang="pt">Informações</h3>
           <h3 data-lang="en">Information</h3>
@@ -581,11 +712,11 @@
             <div class="form-group">
               <label data-lang="pt">Nome</label>
               <label data-lang="en">Name</label>
-              <input type="text" name="name" required placeholder="O seu nome">
+              <input type="text" name="name" required data-ph-pt="O seu nome" data-ph-en="Your name" placeholder="O seu nome">
             </div>
             <div class="form-group">
               <label>WhatsApp / Telefone</label>
-              <input type="tel" name="phone" required placeholder="+244 ...">
+              <input type="tel" name="phone" required data-ph-pt="+244 ..." data-ph-en="+244 ..." placeholder="+244 ...">
             </div>
             <div class="form-group">
               <label data-lang="pt">Assunto</label>
@@ -604,7 +735,7 @@
             <div class="form-group">
               <label data-lang="pt">Mensagem</label>
               <label data-lang="en">Message</label>
-              <textarea name="message" required placeholder="Escreva a sua mensagem..."></textarea>
+              <textarea name="message" required data-ph-pt="Escreva a sua mensagem..." data-ph-en="Write your message..." placeholder="Escreva a sua mensagem..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;" data-lang="pt">Enviar pelo WhatsApp</button>
             <button type="submit" class="btn btn-primary" style="width:100%;" data-lang="en">Send via WhatsApp</button>
@@ -619,7 +750,10 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="images/logo.jpg" alt="Eliango Cosmético">
+          <a href="#inicio" class="footer-brand-text">
+            <span class="brand-name">Eliango</span>
+            <span class="brand-tag">Cosmético</span>
+          </a>
           <p data-lang="pt">Criamos o teu brilho. Maquiagem, cabeleireiro, estética e formações em Benfica-Kifica, Luanda.</p>
           <p data-lang="en">We create your glow. Makeup, hairdressing, aesthetics and training in Benfica-Kifica, Luanda.</p>
         </div>
@@ -634,21 +768,31 @@
           <a href="#produtos" data-lang="en">Products</a>
           <a href="#formacoes" data-lang="pt">Formações</a>
           <a href="#formacoes" data-lang="en">Courses</a>
+          <a href="#contacto" data-lang="pt">Contacto</a>
+          <a href="#contacto" data-lang="en">Contact</a>
         </div>
         <div class="footer-links">
           <h4 data-lang="pt">Contacto</h4>
           <h4 data-lang="en">Contact</h4>
           <a href="https://wa.me/244938720335">+244 938 720 335</a>
-          <a href="https://www.instagram.com/eliangocosmetico/" target="_blank">Instagram</a>
-          <a href="https://www.facebook.com/profile.php?id=100077515462072" target="_blank">Facebook</a>
+          <span class="footer-loc" data-lang="pt">Benfica-Kifica, Luanda</span>
+          <span class="footer-loc" data-lang="en">Benfica-Kifica, Luanda</span>
+          <span class="footer-hours" data-lang="pt">Seg–Sáb · por marcação</span>
+          <span class="footer-hours" data-lang="en">Mon–Sat · by appointment</span>
         </div>
         <div>
           <h4 data-lang="pt">Redes Sociais</h4>
           <h4 data-lang="en">Social</h4>
           <div class="socials">
-            <a href="https://www.instagram.com/eliangocosmetico/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-            <a href="https://www.facebook.com/profile.php?id=100077515462072" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-            <a href="https://wa.me/244938720335" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+            <a href="https://www.instagram.com/eliangocosmetico/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=100077515462072" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://wa.me/244938720335" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.117 1.533 5.85L.057 23.45a.5.5 0 0 0 .612.612l5.7-1.495A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 0 1-5.06-1.38l-.36-.214-3.72.975.99-3.63-.235-.375A9.94 9.94 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -659,7 +803,9 @@
   </footer>
 
   <!-- Floating WhatsApp -->
-  <a href="https://wa.me/244938720335" class="float-wa" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+  <a href="https://wa.me/244938720335" class="float-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.117 1.533 5.85L.057 23.45a.5.5 0 0 0 .612.612l5.7-1.495A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 0 1-5.06-1.38l-.36-.214-3.72.975.99-3.63-.235-.375A9.94 9.94 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+  </a>
 
   <!-- Modal -->
   <div class="modal-overlay" id="modalOverlay">

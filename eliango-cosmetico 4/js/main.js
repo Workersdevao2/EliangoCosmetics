@@ -1,23 +1,77 @@
 // Eliango Cosmético - Main JS
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile nav — thin elegant hamburger
-  const navToggle = document.getElementById('navToggle');
-  const nav = document.getElementById('nav');
-  if (navToggle && nav) {
-    navToggle.addEventListener('click', () => {
-      nav.classList.toggle('open');
-      navToggle.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        nav.classList.remove('open');
-        navToggle.classList.remove('open');
-      });
-    });
+  // ---------- Header scroll + announce bar ----------
+  const header = document.getElementById('header');
+  const announce = document.getElementById('announce');
+  let lastScrollY = 0;
+  let ticking = false;
+
+  function onScroll() {
+    const y = window.scrollY;
+    if (y > 20) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+
+    // Hide announce on scroll down, show near top
+    if (y > 80 && y > lastScrollY) {
+      announce.classList.add('hidden');
+      header.classList.add('announce-hidden');
+    } else if (y < 40) {
+      announce.classList.remove('hidden');
+      header.classList.remove('announce-hidden');
+    }
+    lastScrollY = y;
+    ticking = false;
   }
 
-  // Language toggle
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  onScroll(); // initial state
+
+  // ---------- Mobile left drawer ----------
+  const navToggle = document.getElementById('navToggle');
+  const drawer = document.getElementById('drawer');
+  const drawerOverlay = document.getElementById('drawerOverlay');
+  const drawerClose = document.getElementById('drawerClose');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawerOverlay.classList.add('open');
+    navToggle.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('drawer-open');
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawerOverlay.classList.remove('open');
+    navToggle.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('drawer-open');
+  }
+
+  if (navToggle && drawer) {
+    navToggle.addEventListener('click', () => {
+      if (drawer.classList.contains('open')) closeDrawer();
+      else openDrawer();
+    });
+  }
+  if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+  if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+  // Close drawer on nav link click
+  drawer?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', closeDrawer);
+  });
+
+  // ---------- Language toggle ----------
   const langBtns = document.querySelectorAll('.lang-btn');
   const savedLang = localStorage.getItem('eliango-lang') || 'pt';
   setLang(savedLang);
@@ -255,4 +309,66 @@ document.addEventListener('DOMContentLoaded', () => {
       `);
     });
   });
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  if (revealEls.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
+
+  // ---------- Active nav on scroll ----------
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-desktop a, .drawer-nav a');
+
+  function updateActiveNav() {
+    const scrollPos = window.scrollY + 120;
+    let current = '';
+    sections.forEach(sec => {
+      if (sec.offsetTop <= scrollPos) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      link.classList.toggle('active', href === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  // ---------- Gallery lightbox ----------
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const src = item.dataset.src || item.querySelector('img')?.src;
+      if (!src) return;
+      openModal(`
+        <div class="modal-carousel">
+          <div class="slides">
+            <div class="slide"><img src="${src}" alt="Galeria"></div>
+          </div>
+        </div>
+      `);
+    });
+  });
+
+  // ---------- Bilingual form placeholders ----------
+  function updatePlaceholders(lang) {
+    document.querySelectorAll('[data-ph-pt]').forEach(el => {
+      el.placeholder = lang === 'en' ? (el.dataset.phEn || el.placeholder) : (el.dataset.phPt || el.placeholder);
+    });
+  }
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      updatePlaceholders(btn.dataset.setLang);
+    });
+  });
+  updatePlaceholders(savedLang);
 });
