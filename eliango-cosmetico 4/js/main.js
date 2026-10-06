@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dots?.querySelectorAll('span').forEach((d, j) => d.addEventListener('click', () => go(j)));
   }
 
-  // Service cards
+  // Service cards → details + Book now → appointment form
   document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('click', () => {
       const data = JSON.parse(card.dataset.details);
@@ -183,11 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const details = isEn ? data.detailsEn : data.detailsPt;
       const price = data.price;
       const img = data.img;
-      const wa = encodeURIComponent(
-        isEn
-          ? `Hello! I would like to book: ${data.titleEn}`
-          : `Olá! Gostaria de marcar: ${data.titlePt}`
-      );
+      const titlePt = data.titlePt;
 
       openModal(`
         <div class="modal-carousel">
@@ -204,12 +200,57 @@ document.addEventListener('DOMContentLoaded', () => {
             <ul>${details.map(d => '<li>' + d + '</li>').join('')}</ul>
           </div>
           <div class="modal-actions">
-            <a href="https://wa.me/244938720335?text=${wa}" class="btn btn-whatsapp" target="_blank" rel="noopener">
-              ${isEn ? 'Book via WhatsApp' : 'Marcar pelo WhatsApp'}
-            </a>
+            <button type="button" class="btn btn-primary" id="bookNowBtn" data-service="${titlePt.replace(/"/g, '&quot;')}" data-service-en="${(data.titleEn || '').replace(/"/g, '&quot;')}">
+              ${isEn ? 'Book now' : 'Marcar agora'}
+            </button>
           </div>
         </div>
       `);
+
+      document.getElementById('bookNowBtn')?.addEventListener('click', () => {
+        const svc = isEn ? data.titleEn : data.titlePt;
+        openModal(`
+          <div class="modal-body">
+            <h2>${isEn ? 'Book appointment' : 'Marcar serviço'}</h2>
+            <div class="modal-service-preset">${isEn ? 'Service' : 'Serviço'}: <strong>${svc}</strong></div>
+            <form class="modal-form" id="appointmentForm">
+              <input type="hidden" name="service" value="${svc}">
+              <div class="form-group">
+                <label>${isEn ? 'Full name' : 'Nome completo'}</label>
+                <input type="text" name="name" required>
+              </div>
+              <div class="form-group">
+                <label>WhatsApp / Telefone</label>
+                <input type="tel" name="phone" required placeholder="+244 ...">
+              </div>
+              <div class="form-group">
+                <label>${isEn ? 'Preferred date' : 'Data preferida'}</label>
+                <input type="date" name="date">
+              </div>
+              <div class="form-group">
+                <label>${isEn ? 'Preferred time' : 'Horário preferido'}</label>
+                <input type="text" name="time" placeholder="${isEn ? 'e.g. morning / 10:00' : 'ex: manhã / 10:00'}">
+              </div>
+              <div class="form-group">
+                <label>${isEn ? 'Notes (optional)' : 'Notas (opcional)'}</label>
+                <textarea name="notes"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">${isEn ? 'Send via WhatsApp' : 'Enviar pelo WhatsApp'}</button>
+            </form>
+          </div>
+        `);
+        document.getElementById('appointmentForm')?.addEventListener('submit', e => {
+          e.preventDefault();
+          const f = e.target;
+          const text = encodeURIComponent(
+            (isEn
+              ? `Hello! I would like to book an appointment.\n\nService: ${f.service.value}\nName: ${f.name.value}\nPhone: ${f.phone.value}\nDate: ${f.date.value || '—'}\nTime: ${f.time.value || '—'}\nNotes: ${f.notes.value || '—'}`
+              : `Olá! Gostaria de marcar um serviço.\n\nServiço: ${f.service.value}\nNome: ${f.name.value}\nTelefone: ${f.phone.value}\nData: ${f.date.value || '—'}\nHorário: ${f.time.value || '—'}\nNotas: ${f.notes.value || '—'}`)
+          );
+          window.open(`https://wa.me/244938720335?text=${text}`, '_blank');
+          closeModal();
+        });
+      });
     });
   });
 
@@ -270,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Course cards
+  // Course cards → details + enrol link to form page
   document.querySelectorAll('.course-card').forEach(card => {
     card.addEventListener('click', () => {
       const data = JSON.parse(card.dataset.details);
@@ -280,11 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const details = isEn ? data.detailsEn : data.detailsPt;
       const schedule = isEn ? data.scheduleEn : data.schedulePt;
       const img = data.img;
-      const wa = encodeURIComponent(
-        isEn
-          ? `Hello! I want to enroll in: ${data.titleEn}`
-          : `Olá! Quero inscrever-me em: ${data.titlePt}`
-      );
+      const cursoParam = encodeURIComponent(data.titlePt);
 
       openModal(`
         <div class="modal-carousel">
@@ -301,8 +338,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <ul>${details.map(d => '<li>' + d + '</li>').join('')}</ul>
           </div>
           <div class="modal-actions">
-            <a href="https://wa.me/244938720335?text=${wa}" class="btn btn-whatsapp" target="_blank" rel="noopener">
-              ${isEn ? 'Join now via WhatsApp' : 'Inscrever-me pelo WhatsApp'}
+            <a href="inscricao.html?curso=${cursoParam}" class="btn btn-primary">
+              ${isEn ? 'Enrol now' : 'Inscrever-me'}
             </a>
           </div>
         </div>
@@ -371,4 +408,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   updatePlaceholders(savedLang);
+
+  // ---------- Footer newsletter → WhatsApp ----------
+  document.getElementById('footerSignup')?.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = e.target.email.value.trim();
+    if (!email) return;
+    const isEn = document.body.classList.contains('en');
+    const text = encodeURIComponent(
+      isEn
+        ? `Hello! I would like to receive updates from Eliango Cosmético.\nEmail: ${email}`
+        : `Olá! Gostaria de receber novidades da Eliango Cosmético.\nEmail: ${email}`
+    );
+    window.open(`https://wa.me/244938720335?text=${text}`, '_blank');
+    e.target.reset();
+  });
 });

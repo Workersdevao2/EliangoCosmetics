@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscrição | Eliango Cosmético</title>
+  <meta name="description" content="Inscreva-se nas formações profissionais Eliango Cosmético.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/logo.jpg">
+</head>
+<body>
+  <div class="announce" id="announce">
+    <a href="inscricao.html" class="announce-link">
+      <span data-lang="pt">Formações abertas · <em>Inscreva-se agora</em></span>
+      <span data-lang="en">Courses open · <em>Enrol now</em></span>
+    </a>
+  </div>
+
+  <header class="header scrolled" id="header">
+    <div class="header-inner">
+      <button class="nav-toggle" aria-label="Menu" id="navToggle"><span></span><span></span><span></span></button>
+      <a href="index.html#inicio" class="brand">
+        <span class="brand-name">Eliango Cosmético</span>
+        <span class="brand-tag">Elizabeth Raimundo</span>
+      </a>
+      <nav class="nav-desktop" id="navDesktop">
+        <ul>
+          <li><a href="index.html#inicio" data-lang="pt">Início</a><a href="index.html#inicio" data-lang="en">Home</a></li>
+          <li><a href="index.html#formacoes" data-lang="pt">Formações</a><a href="index.html#formacoes" data-lang="en">Courses</a></li>
+          <li><a href="produtos.html" data-lang="pt">Loja</a><a href="produtos.html" data-lang="en">Shop</a></li>
+          <li><a href="inscricao.html" class="active" data-lang="pt">Inscrição</a><a href="inscricao.html" class="active" data-lang="en">Enrol</a></li>
+        </ul>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-set-lang="pt">PT</button>
+          <button class="lang-btn" data-set-lang="en">EN</button>
+        </div>
+      </nav>
+      <div class="header-spacer" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <a href="index.html#inicio" class="drawer-brand">
+        <span class="brand-name">Eliango Cosmético</span>
+        <span class="brand-tag">Elizabeth Raimundo</span>
+      </a>
+      <button class="drawer-close" id="drawerClose" aria-label="Close"><span></span><span></span></button>
+    </div>
+    <nav class="drawer-nav">
+      <ul>
+        <li><a href="index.html#inicio" data-lang="pt">Início</a><a href="index.html#inicio" data-lang="en">Home</a></li>
+        <li><a href="index.html#formacoes" data-lang="pt">Formações</a><a href="index.html#formacoes" data-lang="en">Courses</a></li>
+        <li><a href="produtos.html" data-lang="pt">Loja</a><a href="produtos.html" data-lang="en">Shop</a></li>
+        <li><a href="inscricao.html" data-lang="pt">Inscrição</a><a href="inscricao.html" data-lang="en">Enrol</a></li>
+      </ul>
+    </nav>
+    <div class="drawer-footer">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-set-lang="pt">PT</button>
+        <button class="lang-btn" data-set-lang="en">EN</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow" data-lang="pt">Formações</span>
+      <span class="eyebrow" data-lang="en">Courses</span>
+      <h1 data-lang="pt">Ficha de inscrição</h1>
+      <h1 data-lang="en">Enrollment form</h1>
+      <p data-lang="pt">Preencha os dados. Enviamos a sua inscrição pelo WhatsApp.</p>
+      <p data-lang="en">Fill in your details. We send your enrollment via WhatsApp.</p>
+    </div>
+  </div>
+
+  <section class="page-section">
+    <div class="container">
+      <div class="form-page">
+        <p class="form-hint" data-lang="pt">Campos marcados são importantes para a equipa avaliar a sua candidatura.</p>
+        <p class="form-hint" data-lang="en">These fields help our team assess your application.</p>
+        <form id="enrollmentForm">
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label data-lang="pt">Nome completo *</label>
+              <label data-lang="en">Full name *</label>
+              <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" name="email" required>
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label data-lang="pt">Telefone / WhatsApp *</label>
+              <label data-lang="en">Phone / WhatsApp *</label>
+              <input type="tel" name="phone" required placeholder="+244 ...">
+            </div>
+            <div class="form-group">
+              <label data-lang="pt">Idade *</label>
+              <label data-lang="en">Age *</label>
+              <input type="number" name="age" min="14" max="80" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-lang="pt">Morada / Localização *</label>
+            <label data-lang="en">Address / Location *</label>
+            <input type="text" name="address" required>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label data-lang="pt">Província *</label>
+              <label data-lang="en">Province *</label>
+              <input type="text" name="province" required placeholder="Luanda">
+            </div>
+            <div class="form-group">
+              <label data-lang="pt">Município *</label>
+              <label data-lang="en">Municipality *</label>
+              <input type="text" name="municipality" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-lang="pt">Curso em que se inscreve *</label>
+            <label data-lang="en">Course *</label>
+            <select name="course" id="courseSelect" required>
+              <option value="">—</option>
+              <option value="Maquiagem Profissional">Maquiagem Profissional</option>
+              <option value="Auto-Maquilhagem">Auto-Maquilhagem</option>
+              <option value="Cabeleireiro Profissional">Cabeleireiro Profissional</option>
+              <option value="Manicure & Pedicure">Manicure &amp; Pedicure</option>
+              <option value="Estética Geral">Estética Geral</option>
+              <option value="Barbearia Profissional">Barbearia Profissional</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-lang="pt">Nível do estudante *</label>
+            <label data-lang="en">Student level *</label>
+            <select name="level" required>
+              <option value="">—</option>
+              <option value="Iniciante" data-lang="pt">Iniciante</option>
+              <option value="Iniciante" data-lang="en">Beginner</option>
+              <option value="Intermédio" data-lang="pt">Intermédio</option>
+              <option value="Intermédio" data-lang="en">Intermediate</option>
+              <option value="Avançado" data-lang="pt">Avançado</option>
+              <option value="Avançado" data-lang="en">Advanced</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-lang="pt">O que lhe motivou a aprender o curso desejado? *</label>
+            <label data-lang="en">What motivated you to learn this course? *</label>
+            <textarea name="motivation" required></textarea>
+          </div>
+          <div class="form-group">
+            <label data-lang="pt">Tem dificuldades? Quais?</label>
+            <label data-lang="en">Any difficulties? Which?</label>
+            <textarea name="difficulties"></textarea>
+          </div>
+          <div class="form-group">
+            <label data-lang="pt">Já praticou em algum lugar? Como foi a experiência?</label>
+            <label data-lang="en">Have you practiced elsewhere? How was the experience?</label>
+            <textarea name="experience"></textarea>
+          </div>
+          <div class="form-group">
+            <label data-lang="pt">Notas (opcional)</label>
+            <label data-lang="en">Notes (optional)</label>
+            <textarea name="notes"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" data-lang="pt">Enviar inscrição pelo WhatsApp</button>
+          <button type="submit" class="btn btn-primary" data-lang="en">Send enrollment via WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-signup">
+        <p class="footer-signup-label" data-lang="pt">receba novidades:</p>
+        <p class="footer-signup-label" data-lang="en">sign up for updates:</p>
+        <form class="footer-signup-form" id="footerSignup">
+          <input type="email" name="email" required placeholder="email" data-ph-pt="email" data-ph-en="email address" aria-label="Email">
+          <button type="submit" data-lang="pt">enviar</button>
+          <button type="submit" data-lang="en">submit</button>
+        </form>
+      </div>
+
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/profile.php?id=100077515462072" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/eliangocosmetico/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://wa.me/244938720335" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884z"/></svg>
+        </a>
+      </div>
+
+      <nav class="footer-nav">
+        <a href="index.html#servicos" data-lang="pt">serviços</a>
+        <a href="index.html#servicos" data-lang="en">services</a>
+        <a href="produtos.html" data-lang="pt">loja</a>
+        <a href="produtos.html" data-lang="en">shop</a>
+        <a href="index.html#formacoes" data-lang="pt">formações</a>
+        <a href="index.html#formacoes" data-lang="en">courses</a>
+        <a href="inscricao.html" data-lang="pt">inscrição</a>
+        <a href="inscricao.html" data-lang="en">enrol</a>
+        <a href="https://wa.me/244938720335" data-lang="pt">contacto</a>
+        <a href="https://wa.me/244938720335" data-lang="en">contact</a>
+      </nav>
+
+      <div class="footer-meta">
+        <span data-lang="pt">Benfica-Kifica, Luanda · +244 938 720 335</span>
+        <span data-lang="en">Benfica-Kifica, Luanda · +244 938 720 335</span>
+      </div>
+
+      <p class="footer-copy">© 2026 Eliango Cosmético</p>
+    </div>
+  </footer>
+
+
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(location.search);
+      const curso = params.get('curso');
+      if (curso) {
+        const sel = document.getElementById('courseSelect');
+        if (sel) {
+          const opt = [...sel.options].find(o => o.value === curso);
+          if (opt) sel.value = curso;
+        }
+      }
+
+      document.getElementById('enrollmentForm')?.addEventListener('submit', e => {
+        e.preventDefault();
+        const f = e.target;
+        const isEn = document.body.classList.contains('en');
+        const text = encodeURIComponent(
+          (isEn
+            ? `ENROLLMENT APPLICATION\n\nName: ${f.name.value}\nEmail: ${f.email.value}\nPhone: ${f.phone.value}\nAge: ${f.age.value}\nAddress: ${f.address.value}\nProvince: ${f.province.value}\nMunicipality: ${f.municipality.value}\nCourse: ${f.course.value}\nLevel: ${f.level.value}\nMotivation: ${f.motivation.value}\nDifficulties: ${f.difficulties.value || '—'}\nExperience: ${f.experience.value || '—'}\nNotes: ${f.notes.value || '—'}`
+            : `FICHA DE INSCRIÇÃO\n\nNome: ${f.name.value}\nEmail: ${f.email.value}\nTelefone: ${f.phone.value}\nIdade: ${f.age.value}\nMorada: ${f.address.value}\nProvíncia: ${f.province.value}\nMunicípio: ${f.municipality.value}\nCurso: ${f.course.value}\nNível: ${f.level.value}\nMotivação: ${f.motivation.value}\nDificuldades: ${f.difficulties.value || '—'}\nExperiência: ${f.experience.value || '—'}\nNotas: ${f.notes.value || '—'}`)
+        );
+        window.open(`https://wa.me/244938720335?text=${text}`, '_blank');
+      });
+    });
+  </script>
+</body>
+</html>
