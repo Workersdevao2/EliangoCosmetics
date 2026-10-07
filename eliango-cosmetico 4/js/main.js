@@ -128,17 +128,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalContent = document.getElementById('modalContent');
   const modalClose = document.getElementById('modalClose');
 
-  function openModal(html) {
+  function openModal(html, opts) {
     modalContent.innerHTML = html;
     overlay.classList.add('open');
     document.body.classList.add('modal-open');
-    initCarousel();
+    const modalEl = overlay.querySelector('.modal');
+    if (modalEl) {
+      modalEl.classList.toggle('modal-lightbox', !!(opts && opts.lightbox));
+    }
+    if (!(opts && opts.lightbox)) initCarousel();
   }
 
   function closeModal() {
     overlay.classList.remove('open');
     document.body.classList.remove('modal-open');
     modalContent.innerHTML = '';
+    overlay.querySelector('.modal')?.classList.remove('modal-lightbox');
   }
 
   if (modalClose) modalClose.addEventListener('click', closeModal);
@@ -386,19 +391,47 @@ document.addEventListener('DOMContentLoaded', () => {
   updateActiveNav();
 
   // ---------- Gallery lightbox ----------
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const src = item.dataset.src || item.querySelector('img')?.src;
-      if (!src) return;
-      openModal(`
-        <div class="modal-carousel">
-          <div class="slides">
-            <div class="slide"><img src="${src}" alt="Galeria"></div>
+  (function initGalleryLightbox() {
+    const items = Array.from(document.querySelectorAll('.gallery-item'));
+    if (!items.length) return;
+    const sources = items.map(item => item.dataset.src || item.querySelector('img')?.src).filter(Boolean);
+
+    function openGalleryAt(index) {
+      const total = sources.length;
+      let idx = ((index % total) + total) % total;
+
+      function render() {
+        const src = sources[idx];
+        openModal(`
+          <div class="lightbox">
+            <img src="${src}" alt="Galeria" class="lightbox-img">
+            ${total > 1 ? `
+              <button type="button" class="lightbox-btn lightbox-prev" aria-label="Anterior">‹</button>
+              <button type="button" class="lightbox-btn lightbox-next" aria-label="Seguinte">›</button>
+              <div class="lightbox-counter">${idx + 1} / ${total}</div>
+            ` : ''}
           </div>
-        </div>
-      `);
+        `, { lightbox: true });
+        const box = modalContent.querySelector('.lightbox');
+        if (!box) return;
+        box.querySelector('.lightbox-prev')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          idx = (idx - 1 + total) % total;
+          render();
+        });
+        box.querySelector('.lightbox-next')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          idx = (idx + 1) % total;
+          render();
+        });
+      }
+      render();
+    }
+
+    items.forEach((item, i) => {
+      item.addEventListener('click', () => openGalleryAt(i));
     });
-  });
+  })();
 
   // ---------- Bilingual form placeholders ----------
   function updatePlaceholders(lang) {
