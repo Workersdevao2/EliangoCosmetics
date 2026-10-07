@@ -320,8 +320,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const desc = isEn ? data.descEn : data.descPt;
       const details = isEn ? data.detailsEn : data.detailsPt;
       const schedule = isEn ? data.scheduleEn : data.schedulePt;
+      const price = data.price || '';
       const img = data.img;
       const cursoParam = encodeURIComponent(data.titlePt);
+      const priceLine = price
+        ? `<div class="modal-price">${price}</div><p class="modal-desc" style="margin-top:-0.35rem;margin-bottom:0.75rem;font-size:0.88rem;color:var(--text-light)">${schedule}</p>`
+        : `<div class="modal-price">${schedule}</div>`;
 
       openModal(`
         <div class="modal-carousel">
@@ -331,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="modal-body">
           <h2>${title}</h2>
-          <div class="modal-price">${schedule}</div>
+          ${priceLine}
           <p class="modal-desc">${desc}</p>
           <div class="modal-details">
             <h4>${isEn ? 'What you will learn' : 'O que vai aprender'}</h4>
@@ -448,6 +452,66 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', tryPlayHero, { once: true });
   }
 
+
+  // ---------- Testimonials carousel ----------
+  (function initTestimonialsCarousel() {
+    const track = document.getElementById('testimonialsTrack');
+    const dotsWrap = document.getElementById('testimonialsDots');
+    const prevBtn = document.querySelector('.t-prev');
+    const nextBtn = document.querySelector('.t-next');
+    if (!track) return;
+
+    const cards = Array.from(track.querySelectorAll('.testimonial'));
+    if (!cards.length) return;
+
+    // Build dots
+    cards.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Depoimento ' + (i + 1));
+      if (i === 0) btn.classList.add('active');
+      btn.addEventListener('click', () => {
+        cards[i].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      });
+      dotsWrap?.appendChild(btn);
+    });
+    const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('button')) : [];
+
+    function cardStep() {
+      return cards[0].offsetWidth + 20; // gap ~1.25rem
+    }
+
+    function updateUI() {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      const x = track.scrollLeft;
+      if (prevBtn) prevBtn.disabled = x <= 4;
+      if (nextBtn) nextBtn.disabled = x >= maxScroll - 4;
+
+      // nearest card for dots
+      let nearest = 0;
+      let minDist = Infinity;
+      cards.forEach((c, i) => {
+        const dist = Math.abs(c.offsetLeft - x);
+        if (dist < minDist) {
+          minDist = dist;
+          nearest = i;
+        }
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === nearest));
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      track.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+    });
+    nextBtn?.addEventListener('click', () => {
+      track.scrollBy({ left: cardStep(), behavior: 'smooth' });
+    });
+    track.addEventListener('scroll', () => {
+      window.requestAnimationFrame(updateUI);
+    }, { passive: true });
+    window.addEventListener('resize', updateUI, { passive: true });
+    updateUI();
+  })();
 
   // ---------- Footer newsletter → WhatsApp ----------
   document.getElementById('footerSignup')?.addEventListener('submit', e => {
